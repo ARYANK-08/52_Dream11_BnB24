@@ -1,63 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Chat</title>
-</head>
-<body>
-    <h1>AI Chat</h1>
-    <button id="startRecording">Start Recording</button>
-    <div id="output"></div>
-<p> {{response}} </p>
-{% csrf_token %}
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="container-fluid px-2 px-md-4">
+      <div class="page-header min-height-300 border-radius-xl mt-4" style="background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');">
+        <span class="mask  bg-gradient-primary  opacity-6"></span>
+      </div>
+      <div class="card card-body mx-3 mx-md-4 mt-n6">
+        <div class="row gx-4 mb-2">
+          <div class="col-auto">
+            <div class="avatar avatar-xl position-relative">
+              <img src="{% static 'assets/img/bruce-mars.jpg' %}" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+            </div>
+          </div>
+          <form method="post">
+            {% csrf_token %}
 
-<script>
-    const startRecordingButton = document.getElementById('startRecording');
-    const outputDiv = document.getElementById('output');
-    const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
-
-    startRecordingButton.addEventListener('click', () => {
-        const recognition = new window.webkitSpeechRecognition();
-        recognition.lang = 'en-US';
-        recognition.start();
-
-        recognition.onresult = function(event) {
-            const user_input = event.results[0][0].transcript;
-            outputDiv.textContent = "You said: " + user_input;
-            sendData(user_input);
-        }
-
-        recognition.onend = function() {
-            console.log('Speech recognition ended.');
-        }
-    });
-
-    function sendData(user_input) {
-        fetch('/chat_with_ai', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrfToken  // Include the CSRF token in the headers
-            },
-            body: JSON.stringify({ user_input: user_input })
-        })
-        .then(response => response.json())
-        .then(data => {
-            outputDiv.textContent = "AI Response: " + data.response;
-            speak(data.response);
-        })
-        .catch(error => console.error('Error:', error));
-    }
-
-    function speak(text) {
-        const utterance = new SpeechSynthesisUtterance();
-        utterance.lang = 'en-US';
-        utterance.text = text;
-        window.speechSynthesis.speak(utterance);
-    }
-</script>
-
-
-</body>
-</html>
+            <label for="user_input">Your message:</label><br>
+            <textarea id="user_input" name="user_input" rows="4" cols="50"></textarea><br>
+            <button class="btn bg-gradient-primary" type="submit">Send</button>
+        </form>
+    
+        {% if response %}
+        <div>
+            <h2>AI Response:</h2>
+            <h3>{{ response }}</h3>
+        </div>
+        {% endif %}
+        
+{% endblock %}

@@ -1,12 +1,19 @@
 from django.shortcuts import render, get_object_or_404
 from .models import DoctorProfile, PatientEducation
+from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
 import google.generativeai as genai
 import pyttsx3
-from django.http import JsonResponse
 
 
+def login(request):
+    return render(request, 'pages/sign-in.html')
 
+
+@login_required
 def doctor_list(request):
+    # display doctors according to the time only 
+    
     doctors = DoctorProfile.objects.all()
     return render(request, 'doctor/doctor_list.html', {'doctors': doctors})
 
@@ -30,16 +37,26 @@ def video_call_with_doctor(request, doctor_id):
 def educational_content(request):
     # Retrieve all instances of PatientEducation from the database
     educational_topics = PatientEducation.objects.all()
-    print(educational_topics)
-    # Pass the retrieved data to the template for rendering
-    return render(request, 'patient/education.html', {'educational_topics': educational_topics})
 
+    # Extract video IDs from the URLs and add them to the context
+    video_ids = []
+    for topic in educational_topics:
+        video_url = topic.url
+        video_id = None
+        
+        # Check if the video URL contains 'v='
+        if 'v=' in video_url:
+            # Split the URL at 'v=' and take the second part
+            video_id = video_url.split('v=')[1]
+        
+        video_ids.append(video_id)
+    print(video_ids)
+    context = {
+        'educational_topics': educational_topics,
+        'video_ids': video_ids,  # Pass the list of video IDs to the template
+    }
 
-
-
-
-
-
+    return render(request, 'patient/education.html', context)
 #Chat with AI Doctor
 
 def chat_with_ai(request):
