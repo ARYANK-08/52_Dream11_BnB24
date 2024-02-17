@@ -4,6 +4,11 @@ from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 import google.generativeai as genai
 import pyttsx3
+from gtts import gTTS
+import os
+from googletrans import Translator
+import vlc
+import speech_recognition as sr
 
 
 def login(request):
@@ -65,8 +70,9 @@ def chat_with_ai(request):
         response = get_ai_response(user_input)
         
         # Read out the response using pyttsx3
-      
         print(response)
+        speak(response)
+
         return render(request, 'doctor/ai.html', {'user_input': user_input, 'response': response})
     return render(request, 'doctor/ai.html', {})
 
@@ -96,3 +102,34 @@ def get_ai_response(user_input):
     # print(f'hi{answer}')
     return convo.last.text # Assuming 'message' contains the response text
 
+def speak(text):
+    tts = gTTS(text, lang="hi")  # Create a gTTS object
+    tts.save("output.mp3")  # Save the synthesized speech as an MP3 file
+    # playsound('output.mp3')
+
+    p = vlc.MediaPlayer("output.mp3")
+    p.play()
+    # Wait for the playback to finish
+    while p.get_state() != vlc.State.Ended:
+        pass
+
+    # Stop the playback
+    p.stop()
+
+    os.remove("output.mp3")
+
+# def get_audio(request):
+#     # Your existing get_audio function code
+#     r = sr.Recognizer()
+#     with sr.Microphone() as source:
+#         audio = r.listen(source)
+    
+#     said = ""
+    
+#     try:
+#         said = r.recognize_google(audio)
+#         print(said)
+#     except Exception as e:
+#         print("Exception: " + str(e))
+    
+#     return JsonResponse({'audio_text': said})

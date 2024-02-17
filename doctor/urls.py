@@ -12,4 +12,5 @@ urlpatterns = [
     path('video_call/<int:doctor_id>/', video_call_with_doctor, name='video_call_with_doctor'),
     path('chat_with_ai', chat_with_ai, name='chat_with_ai'),
     path('education', educational_content, name='educational_content'),
+    # path('get_audio/', get_audio, name='get_audio'),
 ]
