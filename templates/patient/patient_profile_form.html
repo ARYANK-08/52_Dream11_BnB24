@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Patient Profile {% endblock title %}
+
+{% block content %} 
+<style>
+    .step {
+        display: none;
+    }
+
+    .step.active {
+        display: block;
+    }
+    .steps {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.steps-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.step-item {
+    width: 40px;
+    height: 40px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    margin: 0 10px;
+}
+
+.step-item.active {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+.step-item:not(:first-child)::before {
+    content: '';
+    width: 50px;
+    height: 2px;
+    background-color: #ccc;
+    position: absolute;
+    top: 19px;
+    left: -55px;
+}
+
+
+</style>
+</head>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="steps">
+                <div class="step-circle active">Step 1</div>
+                <div class="step-circle">Step 2</div>
+                <!-- Add more step circles as needed -->
+            </div>
+            <form id="multi-step-form" class="form" method="POST">
+                {% csrf_token %}
+                <div class="step active" id="step-1">
+                    <div class="input-group input-group-outline my-3" >
+                    {{ form.name }}
+                    
+                    {{ form.last_name }}
+                </div>
+                    <button type="button" class="btn btn-primary" id="next-btn">Next</button>
+                </div>
+                <div class="step" id="step-2">
+                    <div class="input-group input-group-outline my-3" >
+
+                    {{ form.age }}
+                    <div class="input-group input-group-outline my-3" >
+
+                    {{ form.gender }}
+                    <div class="input-group input-group-outline my-3" >
+
+                    {{ form.location }}
+                    <div class="input-group input-group-outline my-3" >
+
+                    {{ form.diseases }}
+                    <div class="input-group input-group-outline my-3" >
+
+                    {{ form.phone_number }}
+                    <div class="input-group input-group-outline my-3" >
+
+                    <button type="button" class="btn btn-primary" id="prev-btn">Previous</button>
+<br>
+<br>
+                 
+                    <button type="submit" class="btn btn-primary" id="submit-btn">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        var currentStep = 1;
+        var totalSteps = $('.step').length;
+
+        $('#next-btn').on('click', function() {
+            if (currentStep < totalSteps) {
+                $('#step-' + currentStep).removeClass('active');
+                $('.step-circle').eq(currentStep - 1).removeClass('active');
+                currentStep++;
+                $('#step-' + currentStep).addClass('active');
+                $('.step-circle').eq(currentStep - 1).addClass('active');
+            }
+        });
+
+        $('#prev-btn').on('click', function() {
+            if (currentStep > 1) {
+                $('#step-' + currentStep).removeClass('active');
+                $('.step-circle').eq(currentStep - 1).removeClass('active');
+                currentStep--;
+                $('#step-' + currentStep).addClass('active');
+                $('.step-circle').eq(currentStep - 1).addClass('active');
+            }
+        });
+    });
+</script>
+{% endblock %}

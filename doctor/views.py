@@ -96,3 +96,129 @@ def get_ai_response(user_input):
     # print(f'hi{answer}')
     return convo.last.text # Assuming 'message' contains the response text
 
+
+
+
+from django.shortcuts import render, redirect
+from .models import PatientProfile
+from .forms import PatientProfileForm
+
+from social_django.models import UserSocialAuth
+
+from django.shortcuts import redirect
+
+
+def check_patient_profile(request):
+    try:
+        user_social_auth = UserSocialAuth.objects.filter(user=request.user).first()
+        if user_social_auth:
+            profile = PatientProfile.objects.filter(user=user_social_auth).first()
+            if profile:
+                return redirect('doctor_list')
+        return redirect('patient_profile')
+    except AttributeError:
+        return redirect('login')  # Redirect to login if user is not authenticated
+
+def patient_profile(request):
+    try:
+        user_social_auth = UserSocialAuth.objects.filter(user=request.user).first()
+        if not user_social_auth:
+            return redirect('login')  # Redirect to login if user has no associated social auth
+
+        if request.method == 'POST':
+            form = PatientProfileForm(request.POST)
+            if form.is_valid():
+                profile = form.save(commit=False)
+                profile.user = user_social_auth
+                profile.save()
+                return redirect('doctor_list')
+        else:
+            form = PatientProfileForm()
+        
+        return render(request, 'patient/patient_profile_form.html', {'form': form})
+    except UserSocialAuth.DoesNotExist:
+        return redirect('login')  # Redirect to login if user is not authenticated
+
+
+def fill_patient_report(request):
+    if request.method == 'POST':
+        form = PatientReportForm(request.POST)
+        if form.is_valid():
+            report = form.save(commit=False)
+            report.user = request.user.social_auth.get(provider='provider_name')  # Assuming 'provider_name' is the name of the provider used for authentication
+            report.save()
+            return redirect('doctor_dashboard')  # Redirect to doctor dashboard or any other appropriate page
+    else:
+        form = PatientReportForm()
+    
+    return render(request, 'patient_report.html', {'form': form})
+
+
+
+from django.shortcuts import render, redirect
+from .models import PatientReport
+from .forms import PatientReportForm
+
+from django.shortcuts import render, redirect
+from .models import UserSocialAuth, PatientReport
+from .forms import PatientReportForm
+from django.conf import settings
+
+def patient_list(request):
+    # Retrieve the list of users
+    patients = UserSocialAuth.objects.all()
+    return render(request, 'patient/patient_list.html', {'patients': patients})
+
+from twilio.rest import Client
+
+def send_report_via_sms(report, patient_name, dr_name):
+    # Twilio credentials
+    account_sid = settings.TWILIO_ACCOUNT_SID
+    auth_token = settings.TWILIO_AUTH_TOKEN
+    twilio_number = settings.TWILIO_PHONE_NUMBER
+
+    # Initialize Twilio client
+    client = Client(account_sid, auth_token)
+
+    # Compose the message body
+    message_body = f"Patient Name: {patient_name}\nDoctor Name: {dr_name}\nDisease: {report.disease}\nPrecaution: {report.precaution}\nMedication: {report.medication}"
+
+
+    # Send the report via SMS
+    message = client.messages.create(
+        body=message_body,
+        from_=twilio_number,
+        to='+918657689680'  # Assuming phone_number is stored in UserSocialAuth model
+    )
+    message1 = client.messages.create(
+        from_='whatsapp:+14155238886',
+        body=message_body,
+        to='whatsapp:+918657689680'
+            )
+
+
+    # Print the message SID for reference
+    print("Message SID:", message.sid)
+
+def fill_report(request, patient_id):
+    patient = get_object_or_404(UserSocialAuth, pk=patient_id)
+    if request.method == 'POST':
+        form = PatientReportForm(request.POST)
+        if form.is_valid():
+            report = form.save(commit=False)
+            report.user = patient  # Assign the UserSocialAuth instance directly
+            report.save()
+            
+            # Get patient and doctor names
+            patient_name = f"{patient.user.first_name} {patient.user.last_name}"
+            dr_name = report.dr_name.doctor_name  # Assuming dr_name is stored in DoctorProfile model
+
+            # Send the report via SMS
+            send_report_via_sms(report, patient_name, dr_name)
+
+            return redirect('chat_with_ai')  # Redirect to success page
+    else:
+        form = PatientReportForm()
+    
+    return render(request, 'patient/patient_report.html', {'form': form, 'patient': patient})
+
