@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style type='text/css'>
+    body {
+        background-position: center;
+        background-size: cover;
+        font-family: sans-serif;
+        margin-top: 40px;
+    }
+
+    .regform {
+        width: 800px;
+        background-color: rgba(253, 252, 252, 0.8);
+        margin: auto;
+        color: #0f0f0f;
+        padding: 10px 0px 10px 0px;
+        text-align: center;
+        border-radius: 15px;
+        border: 5px solid #FF69B4;  /* Pink border */
+    }
+
+    .main-form {
+        width: 800px;
+        margin: auto;
+        background-color: rgb(0, 0, 0, 0.7);
+        padding: 30px;
+        color: #FFFFFF;
+        border: 5px solid #FF69B4;  /* Pink border */
+        border-top: none;  /* To avoid double border at the top */
+        border-radius: 0px 0px 15px 15px;
+    }
+
+    .form-group {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    p {
+        font-size: 20px;
+        font-family: sans-serif;
+        margin: 10px 0;
+    }
+
+</style>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+
+        <div class='regform mt-3'>
+            <h1>Alzheimer Test Results </h1>
+        </div>
+    
+        <div class='main-form'>
+            <div >
+                <div class="row">
+                    <div class="col">
+                        <img src="/media/{{ filename }}"
+                            style='width:250px;height:250px;margin-top: 30px;margin-bottom:30px;'>
+                    </div>
+    
+                    <div class="col"  style='margin-top: 30px;margin-bottom:30px;'>
+                        <p>First Name : {{fn}}</p>
+                        <p>Last Name : {{ln}}</p>
+                        <p>Age : {{age}}</p>
+                        <p> Gender: {{gender}}</p>
+    
+                        {% if r == 0 %}
+                        <div>
+                            <p> Result:<i> NonDemented </i></p>
+                        </div>
+    
+                        {% elif r == 1 %}
+                        <div>
+                            <p> Result:<i> VeryMildDemented </i></p>
+                        </div>
+    
+                        {% elif r == 2 %}
+                        <div>
+                            <p> Result:<i> MildDemented </i></p>
+                        </div>
+    
+    
+                        {% else %}
+                        <div>
+                            <p> Result:<i> ModerateDemented </i></p>
+                        </div>
+                        {% endif %}
+    
+    
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    
+    
+        <!-- Option 1: Bootstrap Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+            crossorigin="anonymous"></script>  
+
+{% endblock %}
+

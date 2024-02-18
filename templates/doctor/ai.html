@@ -14,17 +14,65 @@
           </div>
           <form method="post">
             {% csrf_token %}
-
+        
             <label for="user_input">Your message:</label><br>
-            <textarea id="user_input" name="user_input" rows="4" cols="50"></textarea><br>
+            
+            <input type="radio" name="user_input_type" value="text" id="textOption" checked> Text
+            <input type="radio" name="user_input_type" value="voice" id="voiceOption"> Voice
+        
+            <br>
+            
+            <div id="textInputArea">
+                <textarea id="user_input" name="user_input" rows="4" cols="50"></textarea><br>
+            </div>
+        
+            <div id="voiceInputArea" style="display: none;">
+                <!-- Display the voice recorder -->
+                <button  id="recordButton" type="button" class="btn bg-gradient-primary">Start Recording</button>
+            </div>
+            
             <button class="btn bg-gradient-primary" type="submit">Send</button>
         </form>
-    
+        
         {% if response %}
-        <div>
-            <h2>AI Response:</h2>
-            <h3>{{ response }}</h3>
+        <div id="aiResponse" style="margin-top: 20px; padding: 15px; border: 2px solid #3498db; border-radius: 10px; background-color: #ecf0f1;">
+            <h2 style="color: #2c3e50; font-weight: bold;">AI Response:</h2>
+            <pre id="responseText" style="white-space: pre-wrap; font-family: 'Courier New', monospace; font-size: 16px; margin: 10px 0; color: #333;">
+                {{ response }}
+            </pre>
         </div>
-        {% endif %}
+    
+        <script>
+            // JavaScript to handle asterisks on a new line
+            document.addEventListener('DOMContentLoaded', function () {
+                const responseText = document.getElementById('responseText');
+                if (responseText) {
+                    responseText.innerHTML = responseText.innerHTML.replace(/\*\*/g, '<br>*');
+                }
+            });
+        </script>
+    {% endif %}
+    
+    
+        
+
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
+<script>
+    // JavaScript code to toggle visibility based on the selected input type
+    $(document).ready(function() {
+        $('input[type="radio"]').change(function() {
+            if ($(this).val() == 'text') {
+                $('#textInputArea').show();
+                $('#voiceInputArea').hide();
+            } else if ($(this).val() == 'voice') {
+                $('#textInputArea').hide();
+                $('#voiceInputArea').show();
+                initializeVoiceRecorder();
+            }
+        });
+
+      });
+</script>
         
 {% endblock %}
