@@ -4,6 +4,11 @@ from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 import google.generativeai as genai
 import pyttsx3
+from gtts import gTTS
+import os
+from googletrans import Translator
+import vlc
+import speech_recognition as sr
 
 from django.shortcuts import render, redirect
 from .models import PatientProfile
@@ -83,8 +88,8 @@ def chat_with_ai(request):
         response = get_ai_response(user_input)
         
         # Read out the response using pyttsx3
-      
         print(response)
+
         return render(request, 'doctor/ai.html', {'user_input': user_input, 'response': response})
     return render(request, 'doctor/ai.html', {})
 

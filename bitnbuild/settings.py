@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'doctor',
     'social_django',
+    'disease',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +52,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+
 
 ROOT_URLCONF = 'bitnbuild.urls'
 
@@ -121,6 +124,8 @@ USE_TZ = True
 import os 
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [

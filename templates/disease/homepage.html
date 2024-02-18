@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="card-group">
+<div class="row">
+<div class="col-md-3">
+  <div class="card" data-animation="true">
+    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+      <a class="d-block blur-shadow-image" href="{% url 'covid'%}">
+        <img src="{% static '/assets/icons/covid.jpg' %}" alt="My image" class="img-fluid mx-auto d-block">      
+    </a>
+      <div class="colored-shadow" style="background-image: url(&quot;https://demos.creative-tim.com/test/material-dashboard-pro/assets/img/products/product-1-min.jpg&quot;);"></div>
+    </div>
+    <div class="card-body text-center">
+      <h5 class="font-weight-normal mt-3">
+        <a href="{% url 'covid'%}">Covid Detection</a>
+      </h5>
+    </div>
+    <hr class="dark horizontal my-0">
+  </div>
+</div>
+
+<div class="col-md-3">
+  <div class="card" data-animation="true">
+    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+      <a class="d-block blur-shadow-image" href="{% url 'braintumour'%}">
+        <img src="{% static '/assets/icons/braintumor.png' %}" alt="My image" class="img-fluid mx-auto d-block" alt="img-blur-shadow" class="img-fluid shadow border-radius-lg">
+      </a>
+      <div class="colored-shadow" style="background-image: url(&quot;https://demos.creative-tim.com/test/material-dashboard-pro/assets/img/products/product-1-min.jpg&quot;);"></div>
+    </div>
+    <div class="card-body text-center">
+      <h5 class="font-weight-normal mt-3">
+        <a href="{% url 'braintumour'%}">Brain Tumour Detection</a>
+      </h5>
+    </div>
+    <hr class="dark horizontal my-0">
+  </div>
+
+</div>
+
+<div class="col-md-3">
+  <div class="card" data-animation="true">
+    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+      <a class="d-block blur-shadow-image" href="{% url 'breastcancer'%}">
+        <img src="{% static "/assets/icons/breastcancer.png" %}" alt="img-blur-shadow" class="img-fluid shadow border-radius-lg">
+      </a>
+      <div class="colored-shadow" style="background-image: url(&quot;https://demos.creative-tim.com/test/material-dashboard-pro/assets/img/products/product-1-min.jpg&quot;);"></div>
+    </div>
+    <div class="card-body text-center">
+      
+      <h5 class="font-weight-normal mt-3">
+        <a href="{% url 'breastcancer'%}">Breast Cancer Detection</a>
+      </h5>
+    </div>
+    <hr class="dark horizontal my-0">
+
+  </div>
+</div>
+
+<div class="col-md-3">
+
+  <div class="card" data-animation="true">
+    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+      <a class="d-block blur-shadow-image" href="{% url 'pneumonia'%}">
+        <img src="{% static '/assets/icons/pneumonia.png' %}" alt="My image" class="img-fluid mx-auto d-block">      
+    </a>
+      <div class="colored-shadow" style="background-image: url(&quot;https://demos.creative-tim.com/test/material-dashboard-pro/assets/img/products/product-1-min.jpg&quot;);"></div>
+    </div>
+    <div class="card-body text-center">
+      <h5 class="font-weight-normal mt-3">
+        <a href="{% url 'pneumonia'%}">Pneumonia Detection</a>
+      </h5>
+    </div>
+    <hr class="dark horizontal my-0">
+  </div>
+</div>
+</div>
+
+<br><br>
+
+<div class="row">
+    <div class="col-md-3">
+  <div class="card" data-animation="true">
+    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+      <a class="d-block blur-shadow-image" href="{% url 'heartdisease'%}">
+        <img src="{% static '/assets/icons/heartdisease.png' %}" alt="My image" class="img-fluid mx-auto d-block" alt="img-blur-shadow" class="img-fluid shadow border-radius-lg">
+      </a>
+      <div class="colored-shadow" style="background-image: url(&quot;https://demos.creative-tim.com/test/material-dashboard-pro/assets/img/products/product-1-min.jpg&quot;);"></div>
+    </div>
+    <div class="card-body text-center">
+      <h5 class="font-weight-normal mt-3">
+        <a href="{% url 'heartdisease'%}">Heart Disease Detection</a>
+      </h5>
+    </div>
+    <hr class="dark horizontal my-0">
+  </div>
+</div>
+
+<div class="col-md-3">
+
+  <div class="card" data-animation="true">
+    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+      <a class="d-block blur-shadow-image" href="{% url 'diabetes'%}">
+        <img src="{% static "/assets/icons/diabetes.png" %}" alt="img-blur-shadow" class="img-fluid shadow border-radius-lg">
+      </a>
+      <div class="colored-shadow" style="background-image: url(&quot;https://demos.creative-tim.com/test/material-dashboard-pro/assets/img/products/product-1-min.jpg&quot;);"></div>
+    </div>
+    <div class="card-body text-center">
+      
+      <h5 class="font-weight-normal mt-3">
+        <a href="{% url 'diabetes'%}">Diabetes Detection</a>
+      </h5>
+    </div>
+    <hr class="dark horizontal my-0">
+  </div>
+</div>
+
+<div class="col-md-3">
+
+  <div class="card" data-animation="true">
+    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+      <a class="d-block blur-shadow-image" href="{% url 'alzheimer'%}">
+        <img src="{% static "/assets/icons/alzheimer.png" %}" alt="img-blur-shadow" class="img-fluid shadow border-radius-lg">
+      </a>
+      <div class="colored-shadow" style="background-image: url(&quot;https://demos.creative-tim.com/test/material-dashboard-pro/assets/img/products/product-1-min.jpg&quot;);"></div>
+    </div>
+    <div class="card-body text-center">
+      
+      <h5 class="font-weight-normal mt-3">
+        <a href="{% url 'alzheimer'%}">Alzheimer Detection</a>
+      </h5>
+    </div>
+    <hr class="dark horizontal my-0">
+  </div>
+</div>
+</div>
+
+</div>
+
+        
+{% endblock %}
