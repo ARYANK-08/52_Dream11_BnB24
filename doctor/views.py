@@ -10,6 +10,8 @@ from googletrans import Translator
 import vlc
 import speech_recognition as sr
 
+def index(request):
+    return render(request, 'index.html')
 
 def login(request):
     return render(request, 'pages/sign-in.html')
