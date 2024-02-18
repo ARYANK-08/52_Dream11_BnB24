@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import login_required
 import google.generativeai as genai
 import pyttsx3
 
+def index(request):
+    return render(request, 'index.html')
 
 def login(request):
     return render(request, 'pages/sign-in.html')
