@@ -6,9 +6,10 @@ class DoctorProfile(models.Model):
 
     doctor_name = models.CharField(max_length=100, null=True, blank=True)
     doctor_image = models.ImageField(upload_to='doctor_images/')
-    doctor_timings = models.DateTimeField()
-    doctor_bio = models.CharField(max_length=255)  # Specify the max_length for CharField
+    doctor_start_time = models.TimeField(null=True, blank=True)  # Field for doctor's start time
+    doctor_end_time = models.TimeField(null=True, blank=True)  # Field for doctor's end time    doctor_bio = models.CharField(max_length=255)  # Specify the max_length for CharField
     doctor_room_id = models.CharField(max_length=20,null=True, blank=True) 
+    doctor_bio = models.CharField(max_length=255,null=True, blank=True)  # Specify the max_length for CharField
     doctor_phone_number = models.CharField(max_length=20,null=True, blank=True)  # Assuming maximum length for phone number
     
     def __str__(self):

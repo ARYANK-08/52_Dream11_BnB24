@@ -1,13 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %} {% endblock title %}
+{% block title %} Doctor's Appointment {% endblock title %}
 
 {% block content %} 
 
 
     <div class="container-fluid px-2 px-md-4">
-      <!-- <div class="page-header min-height-300 border-radius-xl mt-4" style="background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');"> -->
-        <span class="mask  bg-gradient-primary  opacity-6"></span>
       </div>
       <div class="card card-body mx-3 mx-md-4 mt-n6">
         <div class="row gx-4 mb-2">
@@ -20,56 +18,53 @@
                     <p class="text-sm">List of doctors</p>
                 </div>
                 <div class="row">
-                    {% for doctor in doctors %}
-                    <div class="col-xl-3 col-md-6 mb-xl-0 mb-4">
-                        <div class="card card-blog card-plain">
-                            <div class="card-header p-0 mt-n4 mx-3">
-                                <a href="{% url 'doctor_detail' doctor.id %}" class="d-block shadow-xl border-radius-xl">
-                                    <!-- Assuming doctor_image is the ImageField in your model -->
-                                    <img src="{{ doctor.doctor_image.url }}" alt="{{ doctor.doctor_name }}" class="img-fluid shadow border-radius-xl">
-                                </a>
+                    <div class="row">
+                        {% for doctor in doctors %}
+                        <div class="col-xl-3 col-md-6 mb-xl-0 mb-4">
+                            <div class="card card-blog card-plain">
+                                <div class="card-header p-0 mt-n4 mx-3">
+                                    <a href="{{ doctor.doctor_image.url }}" class="d-block shadow-xl border-radius-xl">
+                                        <img src="{{ doctor.doctor_image.url }}" alt="{{ doctor.doctor_name }}" class="img-fluid shadow border-radius-xl">
+                                    </a>
+                                </div>
+                                <div class="card-body p-3">
+                                    <h4>{{ doctor.doctor_name }}</bold></h4>
+                                    <p class="mb-0 text-sm">Phone: {{ doctor.doctor_phone_number }}</p>
+                                    <a href="#" class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#modal-doctor-details{{ doctor.id }}">More Details</a>
+                                </div>
                             </div>
-                            <div class="card-body p-3">
-                                <p class="mb-0 text-sm"><bold></bold>{{ doctor.doctor_name }}</p>
-                                <p class="mb-0 text-sm">Phone: {{ doctor.doctor_phone_number }}</p>
-                                <a href="#" class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#modal-doctor-details{{ doctor.id }}">More Details</a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <!-- Doctor Details Modals -->
+                    {% for doctor in doctors %}
+                    <div class="modal fade" id="modal-doctor-details{{ doctor.id }}" tabindex="-1" role="dialog" aria-labelledby="modal-title-doctor-details" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h6 class="modal-title font-weight-normal" id="modal-title-doctor-details">Doctor Details</h6>
+                                    <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="py-3 text-center">
+                                        <h4 class="text-gradient text-primary mt-4">{{ doctor.doctor_name }}</h4>
+                                        <p>Timings: {{ doctor.doctor_start_time }} - {{ doctor.doctor_end_time }}</p>
+                                        <p>Bio: {{ doctor.doctor_bio }}</p>
+                                        <a href="tel:{{ doctor.doctor_phone_number }}" class="btn btn-primary">Phone Call</a>
+                                        <a href="{% url 'video_call_with_doctor' doctor.id %}" class="btn btn-primary">Video Call</a>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-white" data-bs-dismiss="modal">Close</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                     {% endfor %}
-                </div>
-            </div>
-            
-            <!-- Doctor Details Modals -->
-            {% for doctor in doctors %}
-            <div class="modal fade" id="modal-doctor-details{{ doctor.id }}" tabindex="-1" role="dialog" aria-labelledby="modal-title-doctor-details" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h6 class="modal-title font-weight-normal" id="modal-title-doctor-details">Doctor Details</h6>
-                            <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <!-- Display doctor details here -->
-                            <div class="py-3 text-center">
-                                <!-- Assuming doctor is the doctor object passed from the view -->
-                                <h4 class="text-gradient text-primary mt-4">{{ doctor.doctor_name }}</h4>
-                                <p>Timings: {{ doctor.doctor_timings }}</p>
-                                <p>Bio: {{ doctor.doctor_bio }}</p>
-                                <a href="tel:{{ doctor.doctor_phone_number }}" class="btn btn-primary">Phone Call</a>
-                                <a href="{% url 'video_call_with_doctor' doctor.id %}" class="btn btn-primary">Video Call</a>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <!-- You can customize the footer buttons as needed -->
-                            <button type="button" class="btn btn-white" data-bs-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
+                    
             
 
 

@@ -1,30 +1,90 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block content %}
-    <div class="container-fluid px-2 px-md-4">
-      <div class="page-header min-height-300 border-radius-xl mt-4" style="background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');">
-        <span class="mask  bg-gradient-primary  opacity-6"></span>
-      </div>
-      <div class="card card-body mx-3 mx-md-4 mt-n6">
-        <div class="row gx-4 mb-2">
-          <div class="col-auto">
-            <div class="avatar avatar-xl position-relative">
-              <img src="{% static 'assets/img/bruce-mars.jpg' %}" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
-            </div>
-          </div>
-          <form method="post">
-            {% csrf_token %}
 
-            <label for="user_input">Your message:</label><br>
-            <textarea id="user_input" name="user_input" rows="4" cols="50"></textarea><br>
-            <button class="btn bg-gradient-primary" type="submit">Send</button>
-        </form>
-    
-        {% if response %}
-        <div>
-            <h2>AI Response:</h2>
-            <h3>{{ response }}</h3>
+{% block content %}
+<div class="container-fluid px-2 px-md-4">
+    <div class="page-header min-height-300 border-radius-xl mt-4"
+        style="background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');">
+        <span class="mask bg-gradient-primary opacity-6"></span>
+    </div>
+    <div class="card card-body mx-3 mx-md-4 mt-n6">
+        <div class="row gx-4 mb-2">
+            <div class="col-auto">
+                <div class="avatar avatar-xl position-relative">
+                    <img src="{% static 'assets/img/bruce-mars.jpg' %}" alt="profile_image"
+                        class="w-100 border-radius-lg shadow-sm">
+                </div>
+            </div>
+            <form method="post">
+                {% csrf_token %}
+
+                <label for="user_input">Your message:</label><br>
+
+                <input type="radio" name="user_input_type" value="text" id="textOption" checked> Text
+                <input type="radio" name="user_input_type" value="voice" id="voiceOption"> Voice
+
+                <br>
+
+                <div id="textInputArea">
+                    <textarea id="user_input" name="user_input" rows="4" cols="50"></textarea><br>
+                </div>
+
+                <div id="voiceInputArea" style="display: none;">
+                    <!-- Display the voice recorder -->
+                    <button id="recordButton" type="button"
+                        class="btn bg-gradient-primary cursor-pointer">Start Recording</button>
+                </div>
+
+                <label for="language">Select Language:</label>
+                <select class="cursor-pointer" class name="language" id="language">
+                    <option value="english">Marathi</option>
+                    <option value="hindi">Hindi</option>
+                </select>
+
+                <br>
+
+                <button class="btn bg-gradient-primary cursor-pointer" type="submit">Send</button>
+            </form>
+
+            {% if response %}
+            <div id="aiResponse"
+                style="margin-top: 20px; padding: 15px; border: 2px solid #3498db; border-radius: 10px; background-color: #ecf0f1;">
+                <h2 style="color: #2c3e50; font-weight: bold;">AI Response:</h2>
+                <pre id="responseText"
+                    style="white-space: pre-wrap; font-family: 'Courier New', monospace; font-size: 16px; margin: 10px 0; color: #333;">
+                    {{ response }}
+                </pre>
+            </div>
+
+            <script>
+                // JavaScript to handle asterisks on a new line
+                document.addEventListener('DOMContentLoaded', function () {
+                    const responseText = document.getElementById('responseText');
+                    if (responseText) {
+                        responseText.innerHTML = responseText.innerHTML.replace(/\\/g, '<br>*');
+                    }
+                });
+            </script>
+            {% endif %}
+
+            <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+            <script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
+            <script>
+                // JavaScript code to toggle visibility based on the selected input type
+                $(document).ready(function () {
+                    $('input[type="radio"]').change(function () {
+                        if ($(this).val() == 'text') {
+                            $('#textInputArea').show();
+                            $('#voiceInputArea').hide();
+                        } else if ($(this).val() == 'voice') {
+                            $('#textInputArea').hide();
+                            $('#voiceInputArea').show();
+                            initializeVoiceRecorder();
+                        }
+                    });
+                });
+            </script>
         </div>
-        {% endif %}
-        
-{% endblock %}
+    </div>
+</div>
+{% endblock %}

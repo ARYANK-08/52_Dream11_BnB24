@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-pc@3mjl%fc$asvg2rxafm3_^1u&en)wxgq0mzy6wmkvz1l3qh@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['c0e6-182-237-154-55.ngrok-free.app', '127.0.0.1']
 
 
 # Application definition
@@ -108,8 +108,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
+import pytz
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 

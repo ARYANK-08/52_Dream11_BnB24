@@ -5,19 +5,54 @@ from django.contrib.auth.decorators import login_required
 import google.generativeai as genai
 import pyttsx3
 
+from django.shortcuts import render, redirect
+from .models import PatientProfile
+from .forms import PatientProfileForm
+
+from social_django.models import UserSocialAuth
+
+from django.shortcuts import redirect
+from django.shortcuts import render, redirect
+from .models import PatientReport
+from .forms import PatientReportForm
+
+from django.shortcuts import render, redirect
+from .models import UserSocialAuth, PatientReport
+from .forms import PatientReportForm
+from django.conf import settings
+from twilio.rest import Client
+
 def index(request):
     return render(request, 'index.html')
 
 def login(request):
     return render(request, 'pages/sign-in.html')
 
+from django.shortcuts import render
+from .models import DoctorProfile
+from datetime import datetime, time
+import pytz
 
-@login_required
+from django.shortcuts import render, get_object_or_404
+from django.http import JsonResponse
+from .models import DoctorProfile
+from datetime import datetime, time
+import pytz
+
 def doctor_list(request):
-    # display doctors according to the time only 
-    
-    doctors = DoctorProfile.objects.all()
-    return render(request, 'doctor/doctor_list.html', {'doctors': doctors})
+    # Get current Indian time
+    current_time = datetime.now(pytz.timezone('Asia/Kolkata')).time()
+
+    # Filter doctors based on current time falling within their availability timings
+    available_doctors = []
+    for doctor in DoctorProfile.objects.all():
+        if doctor.doctor_start_time and doctor.doctor_end_time:  # Check if the fields are not None
+            if doctor.doctor_start_time <= current_time <= doctor.doctor_end_time:
+                available_doctors.append(doctor)
+
+    print(f"hi{available_doctors}")
+
+    return render(request, 'doctor/doctor_list.html', {'doctors': available_doctors})
 
 def doctor_detail(request, doctor_id):
     doctor = get_object_or_404(DoctorProfile, pk=doctor_id)
@@ -25,11 +60,10 @@ def doctor_detail(request, doctor_id):
     return JsonResponse({
         'doctor_name': doctor.doctor_name,
         'doctor_phone_number': doctor.doctor_phone_number,
-        'doctor_timings': doctor.doctor_timings,
+        'doctor_timings': f"{doctor.doctor_start_time} - {doctor.doctor_end_time}",
         'doctor_bio': doctor.doctor_bio,
         'doctor_room_id': doctor.doctor_room_id,
     })
-
 
 def video_call_with_doctor(request, doctor_id):
     doctor = get_object_or_404(DoctorProfile, pk=doctor_id)
@@ -101,14 +135,6 @@ def get_ai_response(user_input):
 
 
 
-from django.shortcuts import render, redirect
-from .models import PatientProfile
-from .forms import PatientProfileForm
-
-from social_django.models import UserSocialAuth
-
-from django.shortcuts import redirect
-
 
 def check_patient_profile(request):
     try:
@@ -157,21 +183,13 @@ def fill_patient_report(request):
 
 
 
-from django.shortcuts import render, redirect
-from .models import PatientReport
-from .forms import PatientReportForm
-
-from django.shortcuts import render, redirect
-from .models import UserSocialAuth, PatientReport
-from .forms import PatientReportForm
-from django.conf import settings
 
 def patient_list(request):
     # Retrieve the list of users
     patients = UserSocialAuth.objects.all()
     return render(request, 'patient/patient_list.html', {'patients': patients})
 
-from twilio.rest import Client
+
 
 def send_report_via_sms(report, patient_name, dr_name):
     # Twilio credentials
