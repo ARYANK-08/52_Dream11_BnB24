@@ -1,251 +1,142 @@
-<!doctype html>
-<html lang="en">
-    
+{% extends 'base.html' %}
 {% load static %}
+{% block content %}
 
-
-<style>
-    .headstyle {
-        color: rgb(255, 255, 255);
-        font-variant: petite-caps;
-        background-color: rgb(0, 0, 0, 0.8);
-        margin-bottom: 0px
-    }
-
-    .divstyle {
-        border-radius: 10px 10px 10px 10px;
-        margin-left: 1px;
-        margin-right: 1px
-    }
-</style>
-
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-
-    <title>HealthCure</title>
-</head>
-
-<body>
-
-
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">HealthCure</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-
-                    <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="/covid">Covid</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="/braintumor">Brain Tumor</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="/breastcancer">Breast Cancer</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="/alzheimer">Alzheimer</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="/diabetes">Diabetes</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="/pneumonia">Pneumonia</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="/heartdisease">Heart Disease</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <h1 class='text-center py-3'
-            style="font-variant: petite-caps;margin-bottom:0px">
-            <b><i>HealthCure - an all in one medical solution</i></b>
-    </h1>
-
-    <div class="row" style="font-size: 20px;padding: 0px 50px 50px 50px;">
-        <p><b>HealthCure</b> is an all in one medical solution app which brings 7 Disease
-            Detections like Covid Detection, Brain Tumor Detection, Breast Cancer Detection, Alzheimer Detection,
-            Diabetes Detection, Pneumonia Detection, and Heart Disease Detection under one platform.</p>
-
-        <h2 class='text-center py-3'
-            style="color: rgb(255, 255, 255);font-variant: petite-caps;background-color: rgb(0, 0, 0);margin-bottom:0px">
-            <b><i>7 Disease Detections</i></b>
-        </h2>
-
-        <div class='divstyle' style='margin:40px 20px 60px 20px'>
-            <div class="row py-3">
-                <div class="col md-3">
-                    <h3 class='text-center py-3 headstyle' style="font-size: 18px;"><b>Covid Detection</b></h3>
-                    <a href="{% url 'covid'%}"><img src="{% static '/assets/icons/covid.jpg' %}" alt="My image" class="img-fluid mx-auto d-block"></a>
-                </div>
-                <div class="col md-3">
-                    <h3 class='text-center py-3 headstyle' style="font-size: 18px;"><b>Brain Tumor Detection</b></h3>
-                    <a href="{% url 'braintumour'%}"><img src="{% static "/assets/icons/braintumor.png" %}"
-                            class="img-fluid mx-auto d-block"></a>
-                </div>
-                <div class="col md-3">
-                    <h3 class='text-center py-3 headstyle' style="font-size: 18px;"><b>Breast Cancer Detection</b></h3>
-                    <a href="{% url 'breastcancer'%}"><img src="{% static "/assets/icons/breastcancer.png" %}"
-                            class="img-fluid mx-auto d-block"></a>
-                </div>
-                <div class="col md-3">
-                    <h3 class='text-center py-3 headstyle' style="font-size: 18px;"><b>Alzheimer Detection</b></h3>
-                    <a href="{% url 'alzheimer'%}"><img src="{% static "/assets/icons/alzheimer.png" %}"
-                            class="img-fluid mx-auto d-block"></a>
-                </div>
-            </div>
-        </div>
-
-        <div class='divstyle' style='margin:40px 20px 60px 20px'>
-            <div class="row py-3">
-                <div class="col md-3">
-                    <h3 class='text-center py-3 headstyle' style="font-size: 18px;"><b>Diabetes Detection</b></h3>
-                    <a href="{% url 'diabetes'%}"><img src="{% static "/assets/icons/diabetes.png" %}" class="img-fluid mx-auto d-block"></a>
-                </div>
-                <div class="col md-3">
-                    <h3 class='text-center py-3 headstyle' style="font-size: 18px;"><b>Pneumonia Detection</b></h3>
-                    <a href="{% url 'pneumonia'%}"><img src="../static/icons/pneumonia.png"
-                            class="img-fluid mx-auto d-block"></a>
-                </div>
-                <div class="col md-3">
-                    <h3 class='text-center py-3 headstyle' style="font-size: 18px;"><b>Heart Disease Detection</b></h3>
-                    <a href="{% url 'heartdisease'%}"><img src="../static/icons/heartdisease.png"
-                            class="img-fluid mx-auto d-block"></a>
-                </div>
-                <div class="col md-3">
-                </div>
-            </div>
-        </div>
-
-
-        <h3 class='text-center py-3'
-            style="color: rgb(255, 255, 255);font-variant: petite-caps;background-color: rgb(0, 0, 0);margin-bottom:0px">
-            <b><i>AI in HealthCare</i></b>
-        </h3>
-        <div class="row py-3"
-            style='margin-bottom: 30px;'>
-            <div class="col">
-                <p class="text-left" style='font-size:18px'>
-                    The artificial intelligence (AI) technologies becoming ever present in modern business and
-                    everyday
-                    life is
-                    also steadily being applied to healthcare. The use of artificial intelligence in healthcare has
-                    the
-                    potential to assist healthcare providers in many aspects of patient care and administrative
-                    processes. Most
-                    AI and healthcare technologies have strong relevance to the healthcare field, but the tactics
-                    they
-                    support
-                    can vary significantly. And while some articles on artificial intelligence in healthcare suggest
-                    that the
-                    use of artificial intelligence in healthcare can perform just as well or better than humans at
-                    certain
-                    procedures, such as diagnosing disease, it will be a significant number of years before AI in
-                    healthcare
-                    replaces humans for a broad range of medical tasks.
-                </p>
-            </div>
-            <div class="col">
-                <img src="../static/healthcure.png" class="img-fluid rounded mx-auto d-block" alt="...">
-            </div>
-        </div>
-
-        <h3 class='text-center py-3'
-            style="color: rgb(255, 255, 255);font-variant: petite-caps;background-color: rgb(0, 0, 0);margin-bottom:0px">
-            <b><i>Machine Learning</i></b>
-        </h3>
-        <div class="row py-3" style='margin-bottom: 30px'>
-            <div class="col">
-                <p class="text-left" style='font-size:18px'>
-                    Machine learning is one of the most common forms of artificial intelligence in healthcare. It is
-                    a
-                    broad technique at the core of many approaches to AI and healthcare technology and there are
-                    many
-                    versions of it.
-                    Using artificial intelligence in healthcare, the most widespread utilization of traditional
-                    machine
-                    learning is precision medicine. Being able to predict what treatment procedures are likely to be
-                    successful
-                    with patients based on their make-up and the treatment framework is a huge leap forward for many
-                    healthcare organizations. The majority of AI in healthcare that uses machine learning and
-                    precision
-                    medicine applications require data for training, for which the end result is known. This is
-                    known as
-                    supervised learning.
-                </p>
-            </div>
-            <div class="col">
-                <img src="../static/ml.png" class="img-fluid rounded mx-auto d-block" alt="...">
-            </div>
-        </div>
-
-
-        <h3 class='text-center py-3'
-            style="color: rgb(255, 255, 255);font-variant: petite-caps;background-color: rgb(0, 0, 0);margin-bottom:0px">
-            <b><i>Natural Language Processing</i></b>
-        </h3>
-        <div class="row py-3" style='margin-bottom: 30px'>
-            <div class="col">
-                <p class="text-left" style='font-size:18px'>
-                    Making sense of human language has been a goal of artificial intelligence and healthcare
-                    technology
-                    for over
-                    50 years. Most NLP systems include forms of speech recognition or text analysis and then
-                    translation. A
-                    common use of artificial intelligence in healthcare involves NLP applications that can
-                    understand
-                    and
-                    classify clinical documentation. NLP systems can analyze unstructured clinical notes on
-                    patients,
-                    giving
-                    incredible insight into understanding quality, improving methods, and better results for
-                    patients.
-                </p>
-            </div>
-            <div class="col">
-                <img src="../static/nlp.jpg" class="img-fluid rounded mx-auto d-block" style='width:auto; height:300px'
-                    alt="...">
-            </div>
-        </div>
+<div class="card-group">
+<div class="row">
+<div class="col-md-3">
+  <div class="card" data-animation="true">
+    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+      <a class="d-block blur-shadow-image" href="{% url 'covid'%}">
+        <img src="{% static '/assets/icons/covid.jpg' %}" alt="My image" class="img-fluid mx-auto d-block">      
+    </a>
+      <div class="colored-shadow" style="background-image: url(&quot;https://demos.creative-tim.com/test/material-dashboard-pro/assets/img/products/product-1-min.jpg&quot;);"></div>
     </div>
+    <div class="card-body text-center">
+      <h5 class="font-weight-normal mt-3">
+        <a href="{% url 'covid'%}">Covid Detection</a>
+      </h5>
+    </div>
+    <hr class="dark horizontal my-0">
+  </div>
+</div>
 
+<div class="col-md-3">
+  <div class="card" data-animation="true">
+    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+      <a class="d-block blur-shadow-image" href="{% url 'braintumour'%}">
+        <img src="{% static '/assets/icons/braintumor.png' %}" alt="My image" class="img-fluid mx-auto d-block" alt="img-blur-shadow" class="img-fluid shadow border-radius-lg">
+      </a>
+      <div class="colored-shadow" style="background-image: url(&quot;https://demos.creative-tim.com/test/material-dashboard-pro/assets/img/products/product-1-min.jpg&quot;);"></div>
+    </div>
+    <div class="card-body text-center">
+      <h5 class="font-weight-normal mt-3">
+        <a href="{% url 'braintumour'%}">Brain Tumour Detection</a>
+      </h5>
+    </div>
+    <hr class="dark horizontal my-0">
+  </div>
 
+</div>
 
+<div class="col-md-3">
+  <div class="card" data-animation="true">
+    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+      <a class="d-block blur-shadow-image" href="{% url 'breastcancer'%}">
+        <img src="{% static "/assets/icons/breastcancer.png" %}" alt="img-blur-shadow" class="img-fluid shadow border-radius-lg">
+      </a>
+      <div class="colored-shadow" style="background-image: url(&quot;https://demos.creative-tim.com/test/material-dashboard-pro/assets/img/products/product-1-min.jpg&quot;);"></div>
+    </div>
+    <div class="card-body text-center">
+      
+      <h5 class="font-weight-normal mt-3">
+        <a href="{% url 'breastcancer'%}">Breast Cancer Detection</a>
+      </h5>
+    </div>
+    <hr class="dark horizontal my-0">
 
-    <footer class='text-light bg-dark position-relative '>
-        <p class='text-center py-1 my-0'>
-            Made with ❤ by Abhishek
-        </p>
-    </footer>
+  </div>
+</div>
 
+<div class="col-md-3">
 
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
-        crossorigin="anonymous"></script>
+  <div class="card" data-animation="true">
+    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+      <a class="d-block blur-shadow-image" href="{% url 'pneumonia'%}">
+        <img src="{% static '/assets/icons/pneumonia.png' %}" alt="My image" class="img-fluid mx-auto d-block">      
+    </a>
+      <div class="colored-shadow" style="background-image: url(&quot;https://demos.creative-tim.com/test/material-dashboard-pro/assets/img/products/product-1-min.jpg&quot;);"></div>
+    </div>
+    <div class="card-body text-center">
+      <h5 class="font-weight-normal mt-3">
+        <a href="{% url 'pneumonia'%}">Pneumonia Detection</a>
+      </h5>
+    </div>
+    <hr class="dark horizontal my-0">
+  </div>
+</div>
+</div>
 
+<br><br>
 
+<div class="row">
+    <div class="col-md-3">
+  <div class="card" data-animation="true">
+    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+      <a class="d-block blur-shadow-image" href="{% url 'heartdisease'%}">
+        <img src="{% static '/assets/icons/heartdisease.png' %}" alt="My image" class="img-fluid mx-auto d-block" alt="img-blur-shadow" class="img-fluid shadow border-radius-lg">
+      </a>
+      <div class="colored-shadow" style="background-image: url(&quot;https://demos.creative-tim.com/test/material-dashboard-pro/assets/img/products/product-1-min.jpg&quot;);"></div>
+    </div>
+    <div class="card-body text-center">
+      <h5 class="font-weight-normal mt-3">
+        <a href="{% url 'heartdisease'%}">Heart Disease Detection</a>
+      </h5>
+    </div>
+    <hr class="dark horizontal my-0">
+  </div>
+</div>
 
-</body>
+<div class="col-md-3">
 
-</html>
+  <div class="card" data-animation="true">
+    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+      <a class="d-block blur-shadow-image" href="{% url 'diabetes'%}">
+        <img src="{% static "/assets/icons/diabetes.png" %}" alt="img-blur-shadow" class="img-fluid shadow border-radius-lg">
+      </a>
+      <div class="colored-shadow" style="background-image: url(&quot;https://demos.creative-tim.com/test/material-dashboard-pro/assets/img/products/product-1-min.jpg&quot;);"></div>
+    </div>
+    <div class="card-body text-center">
+      
+      <h5 class="font-weight-normal mt-3">
+        <a href="{% url 'diabetes'%}">Diabetes Detection</a>
+      </h5>
+    </div>
+    <hr class="dark horizontal my-0">
+  </div>
+</div>
+
+<div class="col-md-3">
+
+  <div class="card" data-animation="true">
+    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+      <a class="d-block blur-shadow-image" href="{% url 'alzheimer'%}">
+        <img src="{% static "/assets/icons/alzheimer.png" %}" alt="img-blur-shadow" class="img-fluid shadow border-radius-lg">
+      </a>
+      <div class="colored-shadow" style="background-image: url(&quot;https://demos.creative-tim.com/test/material-dashboard-pro/assets/img/products/product-1-min.jpg&quot;);"></div>
+    </div>
+    <div class="card-body text-center">
+      
+      <h5 class="font-weight-normal mt-3">
+        <a href="{% url 'alzheimer'%}">Alzheimer Detection</a>
+      </h5>
+    </div>
+    <hr class="dark horizontal my-0">
+  </div>
+</div>
+</div>
+
+</div>
+
+        
+{% endblock %}
