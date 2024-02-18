@@ -5,6 +5,23 @@ from django.contrib.auth.decorators import login_required
 import google.generativeai as genai
 import pyttsx3
 
+from django.shortcuts import render, redirect
+from .models import PatientProfile
+from .forms import PatientProfileForm
+
+from social_django.models import UserSocialAuth
+
+from django.shortcuts import redirect
+from django.shortcuts import render, redirect
+from .models import PatientReport
+from .forms import PatientReportForm
+
+from django.shortcuts import render, redirect
+from .models import UserSocialAuth, PatientReport
+from .forms import PatientReportForm
+from django.conf import settings
+from twilio.rest import Client
+
 def index(request):
     return render(request, 'index.html')
 
@@ -12,7 +29,6 @@ def login(request):
     return render(request, 'pages/sign-in.html')
 
 
-@login_required
 def doctor_list(request):
     # display doctors according to the time only 
     
@@ -101,14 +117,6 @@ def get_ai_response(user_input):
 
 
 
-from django.shortcuts import render, redirect
-from .models import PatientProfile
-from .forms import PatientProfileForm
-
-from social_django.models import UserSocialAuth
-
-from django.shortcuts import redirect
-
 
 def check_patient_profile(request):
     try:
@@ -157,21 +165,13 @@ def fill_patient_report(request):
 
 
 
-from django.shortcuts import render, redirect
-from .models import PatientReport
-from .forms import PatientReportForm
-
-from django.shortcuts import render, redirect
-from .models import UserSocialAuth, PatientReport
-from .forms import PatientReportForm
-from django.conf import settings
 
 def patient_list(request):
     # Retrieve the list of users
     patients = UserSocialAuth.objects.all()
     return render(request, 'patient/patient_list.html', {'patients': patients})
 
-from twilio.rest import Client
+
 
 def send_report_via_sms(report, patient_name, dr_name):
     # Twilio credentials
